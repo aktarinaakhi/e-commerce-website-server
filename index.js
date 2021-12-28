@@ -42,6 +42,14 @@ async function run() {
             res.json(result);
         });
 
+        app.post('/products/byKeys', async (req, res) => {
+            console.log(req.body)
+            const keys = req.body;
+            const query = { key: { $in: keys } }
+            const products = await productsCollection.find(query).toArray();
+            res.json(products);
+        })
+
         //orders post api
         app.post('/orders', async (req, res) => {
             const orders = req.body;
